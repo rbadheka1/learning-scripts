@@ -73,3 +73,35 @@ Here EmployeeID is the primary key that uniquely identifies each employee in the
 A Foreign Key is a column or a set of columns in one table that refers to the Primary Key in another table. It establishes a relationship between the two tables and ensures ref
 
 */
+
+-- How to run this script in Codespaces:
+-- Open the terminal and run:
+--   sqlite3 test.db < sql/script01.sql
+-- This will create the database (if it doesn't exist), create the table, insert sample data, and show all employees.
+
+-- Create Employees table only if it does not exist
+CREATE TABLE IF NOT EXISTS Employees (
+    EmployeeID INTEGER PRIMARY KEY,
+    Name TEXT NOT NULL,
+    Age INTEGER
+);
+
+-- Insert sample data only if the table is empty
+INSERT INTO Employees (EmployeeID, Name, Age)
+SELECT 1, 'Alice', 30
+WHERE NOT EXISTS (SELECT 1 FROM Employees WHERE EmployeeID = 1);
+
+INSERT INTO Employees (EmployeeID, Name, Age)
+SELECT 2, 'Bob', 25
+WHERE NOT EXISTS (SELECT 1 FROM Employees WHERE EmployeeID = 2);
+
+-- Query all employees
+SELECT * FROM Employees;
+
+-- Comments and explanations
+/*
+This script:
+- Creates the Employees table if it does not exist.
+- Inserts sample data only if those EmployeeIDs do not already exist.
+- Queries all records from the Employees table.
+*/
