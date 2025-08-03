@@ -108,7 +108,6 @@ Codespaces Terminal Management Instructions:
 - Delete a Codespace: gh codespace delete <name>
   (Replace <name> with the Codespace name from the list.)
 Tip: Always use 'gh codespace list' first to get the correct Codespace name before running stop, resume, or delete commands.
-*/
 
 -- Your SQL code starts here
 CREATE TABLE IF NOT EXISTS Employees (
@@ -134,79 +133,78 @@ This script:
 - Inserts sample data only if those EmployeeIDs do not already exist.
 - Queries all records from the Employees table.
 */
-
-/*
-How to use Jupyter Notebooks for SQL in Codespaces:
-
-1. Install Jupyter and ipython-sql if not already available:
-   pip install notebook ipython-sql
-
-2. Start Jupyter Notebook in your Codespace terminal:
-   jupyter notebook
-
-3. Open the notebook in your browser:
-   $BROWSER http://localhost:8888
-
-4. In a notebook cell, load the SQL extension:
-   %load_ext sql
-   %sql sqlite:///test.db
-
-5. Run SQL queries in notebook cells using:
-   %%sql
-   SELECT * FROM Employees;
-
-This allows you to run SQL interactively, visualize results, and mix SQL with Python code in    Jupyter Notebooks.
 */
 
--- Example of using Jupyter Notebook with SQL
-%%sql
-SELECT * FROM Employees;        
--- This will display all records from the Employees table in the Jupyter Notebook.
--- End of SQL script
--- You can add more SQL queries below to continue working with the Employees table or any other tables
--- For example, to update an employee's age:
-UPDATE Employees
-SET Age = 31
-WHERE EmployeeID = 1;       
--- This updates Alice's age to 31.  
--- To delete an employee:
+/*
+Basic Level (Beginner)
 
-DELETE FROM Employees
-WHERE EmployeeID = 2;
--- This deletes Bob from the Employees table.       
+How to use this script in Codespaces:
 
--- To see the updated records after deletion:
+1. Run in the terminal to execute all SQL commands:
+   sqlite3 test.db < sql/script01.sql
+
+2. To use Jupyter Notebook or Console for interactive SQL:
+   - Start Jupyter Notebook:
+     jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser
+   - Open the notebook in your browser:
+     $BROWSER http://localhost:8888/?token=YOUR_TOKEN_HERE
+   - In Jupyter, go to File > New > Console > Python 3 (or New > Python 3 for a notebook).
+   - In the first cell, run:
+       %load_ext sql
+       %sql sqlite:///test.db
+   - To run SQL queries:
+       %sql SELECT * FROM Employees;
+       -- or in a notebook cell:
+       %%sql
+       SELECT * FROM Employees;
+
+Codespaces management:
+- List Codespaces: gh codespace list
+- Stop: gh codespace stop <name>
+- Resume: gh codespace resume <name>
+- Delete: gh codespace delete <name>
+  (Replace <name> with your Codespace name from the list.)
+
+---
+
+SQL Examples:
+
+-- Create tables
+CREATE TABLE IF NOT EXISTS Departments (
+    DepartmentID INTEGER PRIMARY KEY,
+    DepartmentName TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Employees (
+    EmployeeID INTEGER PRIMARY KEY,
+    Name TEXT NOT NULL,
+    Age INTEGER,
+    DepartmentID INTEGER,
+    FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID)
+);
+
+-- Insert sample data
+INSERT INTO Departments (DepartmentID, DepartmentName)
+SELECT 1, 'HR'
+WHERE NOT EXISTS (SELECT 1 FROM Departments WHERE DepartmentID = 1);
+
+INSERT INTO Employees (EmployeeID, Name, Age, DepartmentID)
+SELECT 1, 'Alice', 30, 1
+WHERE NOT EXISTS (SELECT 1 FROM Employees WHERE EmployeeID = 1);
+
+-- Query data
 SELECT * FROM Employees;
--- This will show the remaining records in the Employees table after the deletion.      
 
--- You can continue to add more SQL commands as needed.         
+-- Update data
+UPDATE Employees SET Age = 31 WHERE EmployeeID = 1;
+
+-- Delete data
+DELETE FROM Employees WHERE EmployeeID = 1;
+
+-- Query after update/delete
+SELECT * FROM Employees;
+
 -- End of SQL script
--- This script is designed to be run in a Codespace environment using SQLite.
--- It creates a table, inserts sample data, and allows for basic SQL operations.
--- Make sure to run this script in a Codespace with SQLite installed.
--- You can also use this script as a starting point for more complex SQL operations.
--- End of SQL script
-/*
-This repository is designed for practicing SQL scripts in a GitHub Codespace running Ubuntu.
-You can run SQL scripts directly in the terminal using SQLite or interactively in Jupyter Notebooks.
-To execute a script, open the terminal and run: sqlite3 [test.db](http://_vscodecontentref_/0) < sql/script01.sql
-For interactive SQL and data visualization, start Jupyter Notebook with jupyter notebook and open it using $BROWSER http://localhost:8888.
-The SQL scripts include examples of table creation, data insertion, querying, updating, and deletion.
-Codespaces management instructions are provided in the script comments for easy workspace control.
-
-
-
-
-
-Example JUpyter Notebook SUFF:
-$BROWSER http://codespaces-0816e5:8888/tree?token=5f6ae0e2e10e9ef784ec6cbca8b0cf5a2a6e7aed3ea1b111
-```
-
-or
-
-```sh
-$BROWSER http://127.0.0.1:8888/tree?token=5f6ae0e2e10e9ef784ec6cbca8b0cf5a2a6e7aed3ea1b111
-
-
-
 */
+
+
