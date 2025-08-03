@@ -78,6 +78,30 @@ A Foreign Key is a column or a set of columns in one table that refers to the Pr
 -- Open the terminal and run:
 --   sqlite3 test.db < sql/script01.sql
 -- This will create the database (if it doesn't exist), create the table, insert sample data, and show all employees.
+-- .exit or .quit to exit sqlite3
+   
+/*
+Codespaces Terminal Management Instructions:
+
+To manage your Codespaces from the terminal in Ubuntu, use the following commands:
+
+1. List all your Codespaces:
+   gh codespace list
+
+2. Stop a Codespace (shuts it down but preserves your files and environment):
+   gh codespace stop <name>
+   Replace <name> with the Codespace name from the list.
+
+3. Resume (re-open) a Codespace:
+   gh codespace resume <name>
+   Replace <name> with the Codespace name from the list.
+
+4. Delete a Codespace (permanently removes the Codespace and all its data):
+   gh codespace delete <name>
+   Replace <name> with the Codespace name from the list.
+
+Tip: Always use 'gh codespace list' first to get the correct Codespace name before running stop, resume, or delete commands.
+*/
 
 -- Create Employees table only if it does not exist
 CREATE TABLE IF NOT EXISTS Employees (
